@@ -12,7 +12,7 @@ enum APIRouter: URLRequestConvertible {
     
     case weatherByCity(name: String)
     
-    // MARK: HTTPMethod
+    // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
         case .weatherByCity:
@@ -20,7 +20,7 @@ enum APIRouter: URLRequestConvertible {
         }
     }
     
-    // MARK: Path
+    // MARK: - Path
     private var path: String {
         switch self {
         case .weatherByCity(let name):
@@ -28,7 +28,7 @@ enum APIRouter: URLRequestConvertible {
         }
     }
     
-    // MARK: Parameters
+    // MARK: - Parameters
     private var parameters: Parameters? {
         switch self {
         case .weatherByCity:
@@ -36,7 +36,7 @@ enum APIRouter: URLRequestConvertible {
         }
     }
     
-    // MARK: URLRequestConvertible
+    // MARK: - URLRequestConvertible
     func asURLRequest() throws -> URLRequest {
         let url = try (UrlAndKey.ProductionServer.baseURL + path + UrlAndKey.ProductionServer.apiKey).asURL()
         

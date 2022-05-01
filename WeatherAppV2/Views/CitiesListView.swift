@@ -10,7 +10,7 @@ import SnapKit
 
 class CitiesListView: UIViewController {
     
-    // MARK: Parametres
+    // MARK: - Parametres
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Weather"
@@ -41,7 +41,7 @@ class CitiesListView: UIViewController {
     private var viewModel: WeatherViewModel = WeatherViewModel()
     var tableView = UITableView()
     
-    // MARK: Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGroupedBackground
@@ -60,7 +60,7 @@ class CitiesListView: UIViewController {
         tableView.reloadData()
     }
     
-    // MARK: Binding
+    // MARK: - Binding
     func setupBinding() {
         viewModel.weatherData.bind { [weak self] data in
             /// Этот метод срабатывает каждый раз, когда обновляется переменная weatherData
@@ -78,7 +78,7 @@ class CitiesListView: UIViewController {
         }
     }
     
-    // MARK: Add constraints
+    // MARK: - Add constraints
     func addConstraints() {
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
@@ -121,7 +121,7 @@ class CitiesListView: UIViewController {
     
 }
 
-// MARK: UITextFieldDelegate
+// MARK: - UITextFieldDelegate
 extension CitiesListView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         addCity()
@@ -130,7 +130,7 @@ extension CitiesListView: UITextFieldDelegate {
     
 }
 
-// MARK: UITableViewDelegate, UITableViewDataSource
+// MARK: - UITableViewDelegate, UITableViewDataSource
 extension CitiesListView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
