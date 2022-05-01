@@ -62,11 +62,10 @@ class CitiesListView: UIViewController {
     
     // MARK: - Binding
     func setupBinding() {
+        
         viewModel.weatherData.bind { [weak self] data in
-            /// Этот метод срабатывает каждый раз, когда обновляется переменная weatherData
             guard let data = data, let self = self else { return }
             DispatchQueue.main.async {
-                /// Тут можешь обновлять таблицу с помощью data
                 self.viewModel.cities.append(
                     City(
                         name: data.name,
@@ -76,10 +75,12 @@ class CitiesListView: UIViewController {
                 self.tableView.reloadData()
             }
         }
+    
     }
     
     // MARK: - Add constraints
     func addConstraints() {
+        
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(135)
@@ -111,6 +112,7 @@ class CitiesListView: UIViewController {
             make.top.equalTo(nameLabel).inset(45)
             make.right.equalToSuperview().inset(21.5)
         }
+        
     }
     
     @objc private func addCity() {
