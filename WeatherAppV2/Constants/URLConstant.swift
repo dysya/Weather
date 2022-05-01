@@ -7,12 +7,14 @@
 
 import Foundation
 
+
 struct UrlAndKey {
+    // MARK: URL constants
     struct ProductionServer {
         static let baseURL = "https://api.openweathermap.org/data/2.5"
         static let apiKey = "&appid=f7068f7aea2edf395ed544035d7ddf36"
     }
-    
+    // MARK: for login/password
     struct APIParameterKey {
     }
 }
