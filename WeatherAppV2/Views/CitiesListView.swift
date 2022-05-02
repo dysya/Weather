@@ -21,6 +21,7 @@ class CitiesListView: UIViewController {
     private lazy var settingsButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "gear"), for: .normal)
+        button.addTarget(self, action: #selector(stepToSettings), for: .touchUpInside)
         return button
     }()
     
@@ -55,11 +56,6 @@ class CitiesListView: UIViewController {
         setupBinding()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        viewModel.cities.removeAll()
-        tableView.reloadData()
-    }
-    
     // MARK: - Binding
     func setupBinding() {
         
@@ -72,6 +68,7 @@ class CitiesListView: UIViewController {
                         temperature: data.main.temp
                     )
                 )
+                print(self.viewModel.cities[0])
                 self.tableView.reloadData()
             }
         }
@@ -121,6 +118,12 @@ class CitiesListView: UIViewController {
         cityField.text?.removeAll()
     }
     
+    @objc private func stepToSettings() {
+        let settingsVC = SettingsView()
+        settingsVC.modalPresentationStyle = .fullScreen
+        present(settingsVC, animated: true)
+    }
+    
 }
 
 // MARK: - UITextFieldDelegate
@@ -157,6 +160,7 @@ extension CitiesListView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            viewModel.cities.remove(at: 0)
         }
     }
     

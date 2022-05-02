@@ -15,11 +15,11 @@ class DetailView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGroupedBackground
-        initialize()
+        addConstraints()
         
     }
     
-    func initialize() {
+    func addConstraints() {
         view.addSubview(cityNameLabel)
         cityNameLabel.text = city.name + " " + "\(city.temperature)" + "F"
         cityNameLabel.snp.makeConstraints { make in
