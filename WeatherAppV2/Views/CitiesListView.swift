@@ -145,7 +145,7 @@ extension CitiesListView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let city = viewModel.cities[indexPath.row]
-        cell.textLabel?.text = city.name + " \(city.temperature) ℉"
+        cell.textLabel?.text = city.name + " \(city.temperature)℉"
         return cell
     }
     
