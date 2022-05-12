@@ -9,9 +9,15 @@ import Foundation
 
 
 struct UrlAndKey {
-    // MARK: URL constants
+    // MARK: URL constants for city
     struct ProductionServer {
         static let baseURL = "https://api.openweathermap.org/data/2.5"
+        static let apiKey = "&appid=f7068f7aea2edf395ed544035d7ddf36"
+    }
+    // MARK: URL constants for cordinates
+    struct ProductionServerForLocation {
+        static let baseURLLat = "https://api.openweathermap.org/data/2.5/weather?lat="
+        static let baseURLLon = "&lon="
         static let apiKey = "&appid=f7068f7aea2edf395ed544035d7ddf36"
     }
     // MARK: for login/password

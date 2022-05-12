@@ -19,6 +19,19 @@ class SettingsView: UIViewController {
         return button
     } ()
     
+    private lazy var themeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Color theme"
+        label.font = .systemFont(ofSize: 20)
+        
+        return label
+    } ()
+    
+    private lazy var themeSwitch: UISwitch = {
+        let switcher = UISwitch()
+        return switcher
+    } ()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGroupedBackground
@@ -26,11 +39,25 @@ class SettingsView: UIViewController {
     }
     
     private func addConstraints() {
+        
         view.addSubview(backButton)
         backButton.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(45)
             make.left.equalToSuperview().inset(20)
         }
+    
+        view.addSubview(themeLabel)
+        themeLabel.snp.makeConstraints { make in
+            make.top.equalTo(backButton).inset(40)
+            make.left.equalToSuperview().inset(20)
+        }
+        
+        view.addSubview(themeSwitch)
+        themeSwitch.snp.makeConstraints { make in
+            make.top.equalTo(backButton).inset(35)
+            make.right.equalToSuperview().inset(20)
+        }
+        
     }
     
     @objc private func stepToCitiesList() {

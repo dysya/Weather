@@ -13,8 +13,8 @@ class CitiesListView: UIViewController {
     // MARK: - Parametres
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Weather"
-        label.font = .boldSystemFont(ofSize: 25)
+        label.text = "Weather app"
+        label.font = .boldSystemFont(ofSize: 23)
         return label
     }()
     
@@ -25,7 +25,7 @@ class CitiesListView: UIViewController {
         return button
     }()
     
-    private lazy var cityField: UITextField = {
+    private var cityField: UITextField = {
         let field = UITextField()
         field.placeholder = "City name..."
         field.borderStyle = .roundedRect
@@ -68,7 +68,6 @@ class CitiesListView: UIViewController {
                         temperature: data.main.temp
                     )
                 )
-                print(self.viewModel.cities[0])
                 self.tableView.reloadData()
             }
         }

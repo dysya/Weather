@@ -23,6 +23,8 @@
 		38BB95EC281EA5EB00DAD9DE /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38BB95EB281EA5EB00DAD9DE /* APIClient.swift */; };
 		38BB95EE281EA5FA00DAD9DE /* APICongigguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38BB95ED281EA5FA00DAD9DE /* APICongigguration.swift */; };
 		38BB95F0281EA6AA00DAD9DE /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38BB95EF281EA6AA00DAD9DE /* WeatherModel.swift */; };
+		38C02569282DBA4F002C047C /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C02568282DBA4F002C047C /* LocationViewModel.swift */; };
+		38CA197E2823368A000D167D /* CurrentLocationWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CA197D2823368A000D167D /* CurrentLocationWeather.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +45,8 @@
 		38BB95EB281EA5EB00DAD9DE /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		38BB95ED281EA5FA00DAD9DE /* APICongigguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICongigguration.swift; sourceTree = "<group>"; };
 		38BB95EF281EA6AA00DAD9DE /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
+		38C02568282DBA4F002C047C /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
+		38CA197D2823368A000D167D /* CurrentLocationWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationWeather.swift; sourceTree = "<group>"; };
 		56224EDFB73CEE79B40D7CFB /* Pods-WeatherAppV2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherAppV2.release.xcconfig"; path = "Target Support Files/Pods-WeatherAppV2/Pods-WeatherAppV2.release.xcconfig"; sourceTree = "<group>"; };
 		6C666D0BA5B892653C3B2C75 /* Pods_WeatherAppV2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeatherAppV2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8A9DB00BEC8C7468F65E3EE /* Pods-WeatherAppV2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherAppV2.debug.xcconfig"; path = "Target Support Files/Pods-WeatherAppV2/Pods-WeatherAppV2.debug.xcconfig"; sourceTree = "<group>"; };
@@ -106,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				38BB95E0281EA58A00DAD9DE /* WeatherViewModel.swift */,
+				38C02568282DBA4F002C047C /* LocationViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -113,6 +118,7 @@
 		38BB95D7281EA4ED00DAD9DE /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				38CA197D2823368A000D167D /* CurrentLocationWeather.swift */,
 				3863B343281EA3BF00A5EF74 /* CitiesListView.swift */,
 				38BB95DE281EA57000DAD9DE /* DetailView.swift */,
 				38AE4E2A281EBD8F00B8E7A3 /* SettingsView.swift */,
@@ -299,6 +305,7 @@
 				38BB95EE281EA5FA00DAD9DE /* APICongigguration.swift in Sources */,
 				38BB95E4281EA5AB00DAD9DE /* CitiesStructure.swift in Sources */,
 				38BB95EA281EA5DF00DAD9DE /* APIRouter.swift in Sources */,
+				38CA197E2823368A000D167D /* CurrentLocationWeather.swift in Sources */,
 				38BB95E8281EA5D200DAD9DE /* URLConstant.swift in Sources */,
 				38BB95EC281EA5EB00DAD9DE /* APIClient.swift in Sources */,
 				38BB95E1281EA58A00DAD9DE /* WeatherViewModel.swift in Sources */,
@@ -308,6 +315,7 @@
 				3863B340281EA3BF00A5EF74 /* AppDelegate.swift in Sources */,
 				38BB95F0281EA6AA00DAD9DE /* WeatherModel.swift in Sources */,
 				3863B342281EA3BF00A5EF74 /* SceneDelegate.swift in Sources */,
+				38C02569282DBA4F002C047C /* LocationViewModel.swift in Sources */,
 				38AE4E2B281EBD8F00B8E7A3 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
