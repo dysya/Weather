@@ -10,6 +10,7 @@ import Foundation
 struct City{
     var name: String
     var temperature: Double
+    var visibility: Int
 }
 
 typealias Cities = [City]

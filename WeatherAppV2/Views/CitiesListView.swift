@@ -65,7 +65,8 @@ class CitiesListView: UIViewController {
                 self.viewModel.cities.append(
                     City(
                         name: data.name,
-                        temperature: data.main.temp
+                        temperature: data.main.temp,
+                        visibility: data.visibility
                     )
                 )
                 self.tableView.reloadData()
@@ -144,7 +145,7 @@ extension CitiesListView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let city = viewModel.cities[indexPath.row]
-        cell.textLabel?.text = city.name + " \(city.temperature)F"
+        cell.textLabel?.text = city.name + " \(city.temperature) ℉"
         return cell
     }
     

@@ -9,8 +9,20 @@ import UIKit
 import SnapKit
 
 class DetailView: UIViewController {
-    private var cityNameLabel = UILabel()
+    
     var city: City!
+    
+    private lazy var cityNameLabel: UILabel = {
+        let label = UILabel()
+        label.text = city.name + " " + "\(city.temperature)" + "℉"
+        return label
+    } ()
+    
+    private lazy var cityVisibilitey: UILabel = {
+        let label = UILabel()
+        label.text = "Visibility \(city.visibility) meters"
+        return label
+    } ()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,10 +32,16 @@ class DetailView: UIViewController {
     }
     
     func addConstraints() {
+        
         view.addSubview(cityNameLabel)
-        cityNameLabel.text = city.name + " " + "\(city.temperature)" + "F"
         cityNameLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(50)
+            make.left.equalToSuperview().inset(20)
+        }
+        
+        view.addSubview(cityVisibilitey)
+        cityVisibilitey.snp.makeConstraints { make in
+            make.top.equalTo(cityNameLabel).inset(30)
             make.left.equalToSuperview().inset(20)
         }
         
