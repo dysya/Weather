@@ -18,6 +18,15 @@ class CitiesListView: UIViewController {
         return label
     }()
     
+    private lazy var backButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        button.setTitle("Back", for: .normal)
+        button.setTitleColor(button.tintColor, for: .normal)
+        button.addTarget(self, action: #selector(stepToCurLoc), for: .touchUpInside)
+        return button
+    }()
+    
     private lazy var settingsButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "gear"), for: .normal)
@@ -85,11 +94,17 @@ class CitiesListView: UIViewController {
             make.bottom.equalToSuperview().inset(0)
         }
         
-        view.addSubview(nameLabel)
-        nameLabel.snp.makeConstraints { make in
+        view.addSubview(backButton)
+        backButton.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(20)
-            make.top.equalToSuperview().inset(45)
+            make.top.equalToSuperview().inset(50)
         }
+        
+//        view.addSubview(nameLabel)
+//        nameLabel.snp.makeConstraints { make in
+//            make.left.equalToSuperview().inset(20)
+//            make.top.equalToSuperview().inset(45)
+//        }
         
         view.addSubview(settingsButton)
         settingsButton.snp.makeConstraints { make in
@@ -101,12 +116,12 @@ class CitiesListView: UIViewController {
         cityField.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(20)
             make.right.equalToSuperview().inset(56.5)
-            make.top.equalTo(nameLabel).inset(40)
+            make.top.equalTo(backButton).inset(40)
         }
         
         view.addSubview(addButton)
         addButton.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel).inset(45)
+            make.top.equalTo(backButton).inset(45)
             make.right.equalToSuperview().inset(21.5)
         }
         
@@ -122,6 +137,10 @@ class CitiesListView: UIViewController {
         let settingsVC = SettingsView()
         settingsVC.modalPresentationStyle = .fullScreen
         present(settingsVC, animated: true)
+    }
+    
+    @objc private func stepToCurLoc() {
+        dismiss(animated: true)
     }
     
 }

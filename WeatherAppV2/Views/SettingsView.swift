@@ -17,7 +17,7 @@ class SettingsView: UIViewController {
         button.setTitleColor(button.tintColor, for: .normal)
         button.addTarget(self, action: #selector(stepToCitiesList), for: .touchUpInside)
         return button
-    } ()
+    }()
     
     private lazy var themeLabel: UILabel = {
         let label = UILabel()
@@ -25,12 +25,15 @@ class SettingsView: UIViewController {
         label.font = .systemFont(ofSize: 20)
         
         return label
-    } ()
+    }()
     
     private lazy var themeSwitch: UISwitch = {
         let switcher = UISwitch()
+        switcher.addTarget(self, action: #selector(setOn), for: .allTouchEvents)
         return switcher
-    } ()
+    }()
+    
+    private var switcher = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,4 +66,13 @@ class SettingsView: UIViewController {
     @objc private func stepToCitiesList() {
         dismiss(animated: true)
     }
+    
+    @objc func setOn(_ sender: UISwitch) {
+        if sender.isOn {
+            view.backgroundColor = .black
+        } else {
+            view.backgroundColor = .white
+        }
+    }
+    
 }

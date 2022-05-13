@@ -16,13 +16,13 @@ class DetailView: UIViewController {
         let label = UILabel()
         label.text = city.name + " " + "\(city.temperature)" + "℉"
         return label
-    } ()
+    }()
     
     private lazy var cityVisibilitey: UILabel = {
         let label = UILabel()
         label.text = "Visibility \(city.visibility) meters"
         return label
-    } ()
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()

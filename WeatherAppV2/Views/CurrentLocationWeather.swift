@@ -34,7 +34,21 @@ class CurrentLocationWeather: UIViewController {
     
     private lazy var tempLabel: UILabel = {
         let label = UILabel()
-        label.text = "54F"
+        label.text = "54℉"
+        label.font = .systemFont(ofSize: 23)
+        return label
+    }()
+    
+    private lazy var visibilityLabel: UILabel = {
+        let label = UILabel()
+        label.text = "1000 miles"
+        label.font = .systemFont(ofSize: 23)
+        return label
+    }()
+    
+    private lazy var weatherType: UILabel = {
+        let label = UILabel()
+        label.text = "Sunny"
         label.font = .systemFont(ofSize: 23)
         return label
     }()
@@ -43,6 +57,13 @@ class CurrentLocationWeather: UIViewController {
         let image = UIImageView(image: UIImage(systemName: "sun.max.fill"))
         image.tintColor = .orange
         return image
+    }()
+    
+    private lazy var stepToList: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.addTarget(self, action: #selector(stepToListVC), for: .touchUpInside)
+        return button
     }()
     
     // MARK: - Lifecycle
@@ -69,7 +90,7 @@ class CurrentLocationWeather: UIViewController {
     
         view.addSubview(cityName)
         cityName.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel).inset(60)
+            make.top.equalTo(nameLabel).inset(100)
             make.centerX.equalTo(view.center.x)
         }
         
@@ -79,12 +100,29 @@ class CurrentLocationWeather: UIViewController {
             make.centerX.equalTo(view.center.x)
         }
         
-        view.addSubview(weatherImage)
-        weatherImage.snp.makeConstraints { make in
+        view.addSubview(visibilityLabel)
+        visibilityLabel.snp.makeConstraints { make in
             make.top.equalTo(tempLabel).inset(35)
             make.centerX.equalTo(view.center.x)
         }
         
+        view.addSubview(weatherType)
+        weatherType.snp.makeConstraints { make in
+            make.top.equalTo(visibilityLabel).inset(35)
+            make.centerX.equalTo(view.center.x)
+        }
+        
+        view.addSubview(weatherImage)
+        weatherImage.snp.makeConstraints { make in
+            make.top.equalTo(weatherType).inset(35)
+            make.centerX.equalTo(view.center.x)
+        }
+        
+        view.addSubview(stepToList)
+        stepToList.snp.makeConstraints { make in
+            make.bottomMargin.equalToSuperview().inset(30)
+            make.right.equalToSuperview().inset(20)
+        }
         
     }
     
@@ -93,6 +131,12 @@ class CurrentLocationWeather: UIViewController {
         let settingsVC = SettingsView()
         settingsVC.modalPresentationStyle = .fullScreen
         present(settingsVC, animated: true)
+    }
+    
+    @objc private func stepToListVC() {
+        let listVC = CitiesListView()
+        listVC.modalPresentationStyle = .fullScreen
+        present(listVC, animated: true)
     }
     
 }
