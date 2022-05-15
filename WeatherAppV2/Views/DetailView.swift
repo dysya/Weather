@@ -10,6 +10,7 @@ import SnapKit
 
 class DetailView: UIViewController {
     
+    // MARK: - Parametres
     var city: City!
     
     private lazy var cityNameLabel: UILabel = {
@@ -24,6 +25,7 @@ class DetailView: UIViewController {
         return label
     }()
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGroupedBackground
@@ -31,6 +33,7 @@ class DetailView: UIViewController {
         
     }
     
+    // MARK: - Add constraints
     func addConstraints() {
         
         view.addSubview(cityNameLabel)

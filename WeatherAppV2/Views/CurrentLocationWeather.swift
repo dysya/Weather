@@ -32,6 +32,7 @@ class CurrentLocationWeather: UIViewController, CLLocationManagerDelegate {
     
     private lazy var cityName: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
         label.text = "London"
         label.font = .systemFont(ofSize: 23)
         return label
@@ -39,6 +40,7 @@ class CurrentLocationWeather: UIViewController, CLLocationManagerDelegate {
     
     private lazy var tempLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
         label.text = "54℉"
         label.font = .systemFont(ofSize: 23)
         return label
@@ -46,6 +48,7 @@ class CurrentLocationWeather: UIViewController, CLLocationManagerDelegate {
     
     private lazy var visibilityLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
         label.text = "1000 miles"
         label.font = .systemFont(ofSize: 23)
         return label
@@ -53,7 +56,15 @@ class CurrentLocationWeather: UIViewController, CLLocationManagerDelegate {
     
     private lazy var weatherType: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
         label.text = "Sunny"
+        label.font = .systemFont(ofSize: 23)
+        return label
+    }()
+    
+    private lazy var feelsLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
         label.font = .systemFont(ofSize: 23)
         return label
     }()
@@ -87,6 +98,29 @@ class CurrentLocationWeather: UIViewController, CLLocationManagerDelegate {
         setupBinding()
     }
     
+    // MARK: - Binding
+    func setupBinding() {
+        
+        viewModel.weatherData.bind { [weak self] data in
+            guard let data = data, let self = self else { return }
+            DispatchQueue.main.async { [self] in
+                self.viewModel.cities.append(
+                    City(
+                        name: data.name,
+                        temperature: data.main.temp,
+                        visibility: data.visibility,
+                        feelsLike: data.main.feelsLike
+                    )
+                )
+                self.tempLabel.text = "Temperature - \(self.viewModel.weatherData.value?.main.temp ?? 0)℉"
+                self.visibilityLabel.text = "Visibility - \(self.viewModel.weatherData.value?.visibility ?? 0) miles"
+                self.feelsLabel.text = "Feels like - \(self.viewModel.weatherData.value?.main.feelsLike ?? 0)℉"
+            }
+        }
+    
+    }
+    
+    // MARK: - Location
     func fetchCityAndCountry(from location: CLLocation, completion: @escaping (_ city: String?, _ country:  String?, _ error: Error?) -> ()) {
         CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in
             completion(placemarks?.first?.locality,
@@ -100,29 +134,9 @@ class CurrentLocationWeather: UIViewController, CLLocationManagerDelegate {
         fetchCityAndCountry(from: location) { [self] city, country, error in
             guard let city = city, let country = country, error == nil else { return }
             print(city + ", " + country)
-            self.cityName.text = "\(city)"
+            self.cityName.text = "Current city - \(city)"
             self.viewModel.weatherByCity(name: city)
-            tempLabel.text = "\(viewModel.weatherData.value?.main.temp ?? 0)℉"
-            visibilityLabel.text = "\(viewModel.weatherData.value?.visibility ?? 0) miles"
         }
-    }
-    
-    func setupBinding() {
-        
-        viewModel.weatherData.bind { [weak self] data in
-            guard let data = data, let self = self else { return }
-            DispatchQueue.main.async {
-                self.viewModel.cities.append(
-                    City(
-                        name: data.name,
-                        temperature: data.main.temp,
-                        visibility: data.visibility
-                    )
-                )
-                
-            }
-        }
-    
     }
     
     // MARK: - Add constraints
@@ -158,16 +172,22 @@ class CurrentLocationWeather: UIViewController, CLLocationManagerDelegate {
             make.centerX.equalTo(view.center.x)
         }
         
-        view.addSubview(weatherType)
-        weatherType.snp.makeConstraints { make in
+        view.addSubview(feelsLabel)
+        feelsLabel.snp.makeConstraints { make in
             make.top.equalTo(visibilityLabel).inset(35)
             make.centerX.equalTo(view.center.x)
         }
         
+        view.addSubview(weatherType)
+        weatherType.snp.makeConstraints { make in
+            make.top.equalTo(feelsLabel).inset(35)
+            make.centerX.equalTo(view.center.x - 20)
+        }
+        
         view.addSubview(weatherImage)
         weatherImage.snp.makeConstraints { make in
-            make.top.equalTo(weatherType).inset(35)
-            make.centerX.equalTo(view.center.x)
+            make.top.equalTo(feelsLabel).inset(40)
+            make.centerX.equalTo(view.center.x + 30)
         }
         
         view.addSubview(coordinatesLabel)

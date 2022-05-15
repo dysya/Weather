@@ -10,6 +10,7 @@ import SnapKit
 
 class SettingsView: UIViewController {
     
+    // MARK: - Parametres
     private lazy var backButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
@@ -47,16 +48,16 @@ class SettingsView: UIViewController {
         return switcher
     }()
     
-    
-    
     private var switcher = 1
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGroupedBackground
         addConstraints()
     }
     
+    // MARK: - Add constraints
     private func addConstraints() {
         
         view.addSubview(backButton)
@@ -91,6 +92,7 @@ class SettingsView: UIViewController {
         
     }
     
+    // MARK: - Steps to other view controllers
     @objc private func stepToCitiesList() {
         dismiss(animated: true)
     }

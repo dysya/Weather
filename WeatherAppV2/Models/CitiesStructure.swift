@@ -11,6 +11,7 @@ struct City{
     var name: String
     var temperature: Double
     var visibility: Int
+    var feelsLike: Double
 }
 
 typealias Cities = [City]

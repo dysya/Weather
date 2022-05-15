@@ -11,8 +11,6 @@ import SnapKit
 class CitiesListView: UIViewController, UIGestureRecognizerDelegate {
     
     // MARK: - Parametres
-    var page = MainPageControl()
-    
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Favorite cities"
@@ -89,7 +87,8 @@ class CitiesListView: UIViewController, UIGestureRecognizerDelegate {
                     City(
                         name: data.name,
                         temperature: data.main.temp,
-                        visibility: data.visibility
+                        visibility: data.visibility,
+                        feelsLike: data.main.feelsLike
                     )
                 )
                 self.tableView.reloadData()
@@ -141,6 +140,7 @@ class CitiesListView: UIViewController, UIGestureRecognizerDelegate {
         cityField.text?.removeAll()
     }
     
+    // MARK: - Steps to other view controllers
     @objc private func stepToSettings() {
         let settingsVC = SettingsView()
         settingsVC.modalPresentationStyle = .fullScreen

@@ -9,6 +9,7 @@ import UIKit
 
 class MainPageControl: UIPageViewController {
     
+    // MARK: - Parametres
     var pages: [UIViewController] = [CurrentLocationWeather()]
     
     override init(transitionStyle style: UIPageViewController.TransitionStyle, navigationOrientation: UIPageViewController.NavigationOrientation, options: [UIPageViewController.OptionsKey : Any]? = nil) {
@@ -19,6 +20,7 @@ class MainPageControl: UIPageViewController {
         super.init(coder: coder)
     }
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,7 +34,9 @@ class MainPageControl: UIPageViewController {
     
 }
 
-extension MainPageControl: UIPageViewControllerDataSource {
+// MARK: - UIPageViewControllerDataSource, UIPageViewControllerDelegate
+extension MainPageControl: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+    
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
 
         guard let viewControllerIndex = pages.firstIndex(of: viewController) else { return nil }
@@ -57,13 +61,7 @@ extension MainPageControl: UIPageViewControllerDataSource {
 
         return pages[nextIndex]
     }
-}
-
-// typical Page View Controller Delegate
-extension MainPageControl: UIPageViewControllerDelegate {
-
-    // if you do NOT want the built-in PageControl (the "dots"), comment-out these funcs
-
+    
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
         return pages.count
     }
@@ -79,8 +77,10 @@ extension MainPageControl: UIPageViewControllerDelegate {
 
         return firstVCIndex
     }
+    
 }
 
+// MARK: - Extension for UIPageController
 extension UIPageViewController {
 
     var scrollView: UIScrollView? {
