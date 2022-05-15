@@ -20,7 +20,7 @@ class DetailView: UIViewController {
     
     private lazy var cityVisibilitey: UILabel = {
         let label = UILabel()
-        label.text = "Visibility \(city.visibility) meters"
+        label.text = "Visibility \(city.visibility) miles"
         return label
     }()
     

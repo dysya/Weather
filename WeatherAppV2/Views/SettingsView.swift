@@ -33,6 +33,22 @@ class SettingsView: UIViewController {
         return switcher
     }()
     
+    private lazy var locationLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Location"
+        label.font = .systemFont(ofSize: 20)
+        
+        return label
+    }()
+    
+    private lazy var locationSwitch: UISwitch = {
+        let switcher = UISwitch()
+        switcher.addTarget(self, action: #selector(setOn), for: .allTouchEvents)
+        return switcher
+    }()
+    
+    
+    
     private var switcher = 1
     
     override func viewDidLoad() {
@@ -58,6 +74,18 @@ class SettingsView: UIViewController {
         view.addSubview(themeSwitch)
         themeSwitch.snp.makeConstraints { make in
             make.top.equalTo(backButton).inset(35)
+            make.right.equalToSuperview().inset(20)
+        }
+        
+        view.addSubview(locationLabel)
+        locationLabel.snp.makeConstraints { make in
+            make.top.equalTo(themeLabel).inset(40)
+            make.left.equalToSuperview().inset(20)
+        }
+        
+        view.addSubview(locationSwitch)
+        locationSwitch.snp.makeConstraints { make in
+            make.top.equalTo(themeSwitch).inset(40)
             make.right.equalToSuperview().inset(20)
         }
         

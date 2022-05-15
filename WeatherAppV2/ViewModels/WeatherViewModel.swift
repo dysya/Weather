@@ -11,6 +11,7 @@ import Alamofire
 final class WeatherViewModel {
     var weatherData: Observable<WeatherData?> = Observable(nil)
     var cities: Cities = []
+    var currentLocationCity: WeatherData?
     
     @objc func weatherByCity(name: String) {
         APIClient.weatherByCity(name: name) { result in

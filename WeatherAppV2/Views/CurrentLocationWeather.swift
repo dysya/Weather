@@ -7,10 +7,15 @@
 
 import UIKit
 import SnapKit
+import MapKit
+import CoreLocation
 
-class CurrentLocationWeather: UIViewController {
+
+class CurrentLocationWeather: UIViewController, CLLocationManagerDelegate {
     
     // MARK: - Parametrs
+    let locationManager = CLLocationManager()
+    
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Weather app"
@@ -59,18 +64,65 @@ class CurrentLocationWeather: UIViewController {
         return image
     }()
     
-    private lazy var stepToList: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "plus"), for: .normal)
-        button.addTarget(self, action: #selector(stepToListVC), for: .touchUpInside)
-        return button
+    private lazy var coordinatesLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        return label
     }()
+    
+    private var viewModel: WeatherViewModel = WeatherViewModel()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGroupedBackground
         makeConstraints()
+        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+        setupBinding()
+    }
+    
+    func fetchCityAndCountry(from location: CLLocation, completion: @escaping (_ city: String?, _ country:  String?, _ error: Error?) -> ()) {
+        CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in
+            completion(placemarks?.first?.locality,
+                       placemarks?.first?.country,
+                       error)
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location: CLLocation = manager.location else { return }
+        fetchCityAndCountry(from: location) { [self] city, country, error in
+            guard let city = city, let country = country, error == nil else { return }
+            print(city + ", " + country)
+            self.cityName.text = "\(city)"
+            self.viewModel.weatherByCity(name: city)
+            tempLabel.text = "\(viewModel.weatherData.value?.main.temp ?? 0)℉"
+            visibilityLabel.text = "\(viewModel.weatherData.value?.visibility ?? 0) miles"
+        }
+    }
+    
+    func setupBinding() {
+        
+        viewModel.weatherData.bind { [weak self] data in
+            guard let data = data, let self = self else { return }
+            DispatchQueue.main.async {
+                self.viewModel.cities.append(
+                    City(
+                        name: data.name,
+                        temperature: data.main.temp,
+                        visibility: data.visibility
+                    )
+                )
+                
+            }
+        }
+    
     }
     
     // MARK: - Add constraints
@@ -118,10 +170,10 @@ class CurrentLocationWeather: UIViewController {
             make.centerX.equalTo(view.center.x)
         }
         
-        view.addSubview(stepToList)
-        stepToList.snp.makeConstraints { make in
-            make.bottomMargin.equalToSuperview().inset(30)
-            make.right.equalToSuperview().inset(20)
+        view.addSubview(coordinatesLabel)
+        coordinatesLabel.snp.makeConstraints { make in
+            make.top.equalTo(weatherImage).inset(35)
+            make.centerX.equalTo(view.center.x)
         }
         
     }
