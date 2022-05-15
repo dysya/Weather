@@ -36,7 +36,6 @@
       "size" : "60x60"
     },
     {
-      "filename" : "1554717374_1554717432.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "60x60"
@@ -70,11 +69,6 @@
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "40x40"
-    },
-    {
-      "idiom" : "ipad",
-      "scale" : "1x",
-      "size" : "76x76"
     },
     {
       "idiom" : "ipad",
