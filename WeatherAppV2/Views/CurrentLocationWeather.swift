@@ -81,6 +81,13 @@ class CurrentLocationWeather: UIViewController, CLLocationManagerDelegate {
         return label
     }()
     
+    private lazy var mapStepButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "map"), for: .normal)
+        button.addTarget(self, action: #selector(stepToMap), for: .touchUpInside)
+        return button
+    }()
+    
     private var viewModel: WeatherViewModel = WeatherViewModel()
     
     // MARK: - Lifecycle
@@ -135,6 +142,11 @@ class CurrentLocationWeather: UIViewController, CLLocationManagerDelegate {
             guard let city = city, let country = country, error == nil else { return }
             print(city + ", " + country)
             self.cityName.text = "Current city - \(city)"
+//            if city == "Saint Petersburg" {
+//                self.viewModel.weatherByCity(name: "Moscow")
+//            } else {
+//                self.viewModel.weatherByCity(name: city)
+//            }
             self.viewModel.weatherByCity(name: city)
         }
     }
@@ -196,6 +208,12 @@ class CurrentLocationWeather: UIViewController, CLLocationManagerDelegate {
             make.centerX.equalTo(view.center.x)
         }
         
+        view.addSubview(mapStepButton)
+        mapStepButton.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().inset(20)
+            make.left.equalToSuperview().inset(25)
+        }
+        
     }
     
     // MARK: - Steps to other view controllers
@@ -209,6 +227,12 @@ class CurrentLocationWeather: UIViewController, CLLocationManagerDelegate {
         let listVC = CitiesListView()
         listVC.modalPresentationStyle = .fullScreen
         present(listVC, animated: true)
+    }
+    
+    @objc private func stepToMap() {
+        let mapVC = MapDeatilView()
+        mapVC.modalPresentationStyle = .fullScreen
+        present(mapVC, animated: true)
     }
     
 }

@@ -52,6 +52,7 @@ class CitiesListView: UIViewController, UIGestureRecognizerDelegate {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.backgroundColor = .systemGroupedBackground
         cityField.delegate = self
         
         addConstraints()
