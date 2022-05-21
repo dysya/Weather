@@ -124,9 +124,9 @@
 			children = (
 				38C0557428307DE800D1BD33 /* PageControl.swift */,
 				38CA197D2823368A000D167D /* CurrentLocationWeather.swift */,
+				38C1803B2831C0DB00EDF6BF /* MapDetailView.swift */,
 				3863B343281EA3BF00A5EF74 /* CitiesListView.swift */,
 				38BB95DE281EA57000DAD9DE /* DetailView.swift */,
-				38C1803B2831C0DB00EDF6BF /* MapDetailView.swift */,
 				38AE4E2A281EBD8F00B8E7A3 /* SettingsView.swift */,
 			);
 			path = Views;

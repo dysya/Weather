@@ -42,6 +42,7 @@ class CitiesListView: UIViewController, UIGestureRecognizerDelegate {
     }()
     
     private var viewModel: WeatherViewModel = WeatherViewModel()
+    
     var tableView = UITableView()
     
     // MARK: - Lifecycle

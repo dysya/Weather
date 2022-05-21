@@ -83,21 +83,28 @@ class CurrentLocationWeather: UIViewController, CLLocationManagerDelegate {
         return button
     }()
     
+    var lon: Double = 0
+    
     private var viewModel: WeatherViewModel = WeatherViewModel()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         view.backgroundColor = .systemGroupedBackground
-        makeConstraints()
+        addConstraints()
+        
         locationManager.requestAlwaysAuthorization()
         locationManager.requestWhenInUseAuthorization()
+        
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
+        
         setupBinding()
+        
     }
     
     // MARK: - Binding
@@ -126,30 +133,31 @@ class CurrentLocationWeather: UIViewController, CLLocationManagerDelegate {
     
     // MARK: - Location
     func fetchCityAndCountry(from location: CLLocation, completion: @escaping (_ city: String?, _ country:  String?, _ error: Error?) -> ()) {
+
         CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in
             completion(placemarks?.first?.locality,
                        placemarks?.first?.country,
                        error)
         }
+    
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
         guard let location: CLLocation = manager.location else { return }
         fetchCityAndCountry(from: location) { [self] city, country, error in
+            
             guard let city = city, let country = country, error == nil else { return }
             print(city + ", " + country)
             self.cityName.text = "Current city - \(city)"
-//            if city == "Saint Petersburg" {
-//                self.viewModel.weatherByCity(name: "Moscow")
-//            } else {
-//                self.viewModel.weatherByCity(name: city)
-//            }
             self.viewModel.weatherByCity(name: city)
+        
         }
+    
     }
     
     // MARK: - Add constraints
-    private func makeConstraints() {
+    private func addConstraints() {
         
         view.addSubview(nameLabel)
         nameLabel.snp.makeConstraints { make in

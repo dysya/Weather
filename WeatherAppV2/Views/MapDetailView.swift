@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MapDeatilView: UIViewController, CLLocationManagerDelegate {
+class MapDeatilView: UIViewController, MKMapViewDelegate {
     
     // MARK: - Parameters
     let mapView : MKMapView = {
@@ -31,8 +31,8 @@ class MapDeatilView: UIViewController, CLLocationManagerDelegate {
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        mapView.delegate = self
         addConstraints()
         
         self.locationManager.requestWhenInUseAuthorization()
@@ -47,7 +47,6 @@ class MapDeatilView: UIViewController, CLLocationManagerDelegate {
         mapView.mapType = .standard
         mapView.isZoomEnabled = true
         mapView.isScrollEnabled = true
-
 
     }
     
@@ -68,8 +67,16 @@ class MapDeatilView: UIViewController, CLLocationManagerDelegate {
         
     }
     
+    // MARK: - Steps to other view controllers
+    @objc private func stepBack() {
+        dismiss(animated: true)
+    }
     
-    // MARK: - Location
+}
+
+// MARK: CLLocatiuonManagerDelegate
+extension MapDeatilView: CLLocationManagerDelegate {
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
@@ -85,16 +92,7 @@ class MapDeatilView: UIViewController, CLLocationManagerDelegate {
         annotation.title = "Your location"
         annotation.subtitle = "Current location"
         mapView.addAnnotation(annotation)
-
+        
     }
-    
-    @objc private func stepBack() {
-        dismiss(animated: true)
-    }
-    
-}
 
-extension MapDeatilView: MKMapViewDelegate {
-    
 }
-
