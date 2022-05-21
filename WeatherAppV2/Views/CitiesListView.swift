@@ -89,7 +89,9 @@ class CitiesListView: UIViewController, UIGestureRecognizerDelegate {
                         name: data.name,
                         temperature: data.main.temp,
                         visibility: data.visibility,
-                        feelsLike: data.main.feelsLike
+                        feelsLike: data.main.feelsLike,
+                        tempMax: data.main.tempMax,
+                        tempMin: data.main.tempMin
                     )
                 )
                 self.tableView.reloadData()

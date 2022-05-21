@@ -33,7 +33,7 @@ class CurrentLocationWeather: UIViewController, CLLocationManagerDelegate {
     private lazy var cityName: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = "London"
+        label.text = "No data"
         label.font = .systemFont(ofSize: 23)
         return label
     }()
@@ -41,7 +41,7 @@ class CurrentLocationWeather: UIViewController, CLLocationManagerDelegate {
     private lazy var tempLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = "54℉"
+        label.text = "No data"
         label.font = .systemFont(ofSize: 23)
         return label
     }()
@@ -49,7 +49,15 @@ class CurrentLocationWeather: UIViewController, CLLocationManagerDelegate {
     private lazy var visibilityLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = "1000 miles"
+        label.text = "No data"
+        label.font = .systemFont(ofSize: 23)
+        return label
+    }()
+    
+    private lazy var feelsLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.text = "No data"
         label.font = .systemFont(ofSize: 23)
         return label
     }()
@@ -62,23 +70,10 @@ class CurrentLocationWeather: UIViewController, CLLocationManagerDelegate {
         return label
     }()
     
-    private lazy var feelsLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 23)
-        return label
-    }()
-    
     private lazy var weatherImage: UIImageView = {
         let image = UIImageView(image: UIImage(systemName: "sun.max.fill"))
         image.tintColor = .orange
         return image
-    }()
-    
-    private lazy var coordinatesLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        return label
     }()
     
     private lazy var mapStepButton: UIButton = {
@@ -116,7 +111,9 @@ class CurrentLocationWeather: UIViewController, CLLocationManagerDelegate {
                         name: data.name,
                         temperature: data.main.temp,
                         visibility: data.visibility,
-                        feelsLike: data.main.feelsLike
+                        feelsLike: data.main.feelsLike,
+                        tempMax: data.main.tempMax,
+                        tempMin: data.main.tempMin
                     )
                 )
                 self.tempLabel.text = "Temperature - \(self.viewModel.weatherData.value?.main.temp ?? 0)℉"
@@ -193,19 +190,13 @@ class CurrentLocationWeather: UIViewController, CLLocationManagerDelegate {
         view.addSubview(weatherType)
         weatherType.snp.makeConstraints { make in
             make.top.equalTo(feelsLabel).inset(35)
-            make.centerX.equalTo(view.center.x - 20)
+            make.centerX.equalTo(view.center.x - 10)
         }
         
         view.addSubview(weatherImage)
         weatherImage.snp.makeConstraints { make in
             make.top.equalTo(feelsLabel).inset(40)
-            make.centerX.equalTo(view.center.x + 30)
-        }
-        
-        view.addSubview(coordinatesLabel)
-        coordinatesLabel.snp.makeConstraints { make in
-            make.top.equalTo(weatherImage).inset(35)
-            make.centerX.equalTo(view.center.x)
+            make.centerX.equalTo(view.center.x + 40)
         }
         
         view.addSubview(mapStepButton)

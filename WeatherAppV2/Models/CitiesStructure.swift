@@ -12,6 +12,8 @@ struct City{
     var temperature: Double
     var visibility: Int
     var feelsLike: Double
+    var tempMax: Double
+    var tempMin: Double
 }
 
 typealias Cities = [City]
